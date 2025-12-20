@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { Moon, Sun, Menu, X } from "lucide-react"
 import { useTheme } from "next-themes"
@@ -23,6 +24,7 @@ export function Navbar() {
     { name: "Skills", href: "/#skills" },
     { name: "Projects", href: "/#projects" },
     { name: "Blog", href: "/blog" },
+    { name: "Resume", href: "/resume" },
     { name: "Contact", href: "/#contact" },
   ]
 
@@ -30,8 +32,16 @@ export function Navbar() {
     <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-md border-b border-border z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="text-lg font-semibold hover:text-primary transition-colors">
-            SM
+          <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <div className="relative h-8 w-8 overflow-hidden rounded-full">
+              <Image
+                src="/icon-light-32x32.png"
+                alt="Stanley Mutua"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <span className="text-lg font-semibold">Stanley Mutua</span>
           </Link>
 
           {/* Desktop Navigation */}

@@ -11,9 +11,9 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Stanley Mutua | Backend & AI Engineer",
+  title: "Stanley Mutua | Fullstack Developer",
   description:
-    "Backend & AI Engineer specializing in scalable systems, data structures & algorithms, and AI technologies including RAG, embeddings, and local LLMs.",
+    "Fullstack Engineer specializing in scalable systems",
   generator: "v0.app",
   icons: {
     icon: [
@@ -26,8 +26,8 @@ export const metadata: Metadata = {
         media: "(prefers-color-scheme: dark)",
       },
       {
-        url: "/icon.svg",
-        type: "image/svg+xml",
+        url: "/icon-dark-32x32.png",
+        type: "image/png",
       },
     ],
     apple: "/apple-icon.png",
