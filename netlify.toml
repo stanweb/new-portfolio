@@ -1,6 +1,7 @@
 [build]
-publish = "."
-command = "npm run build"
+command = "pnpm build"
+publish = ".next"          # Next.js build output
+functions = "netlify/functions"  # optional if you have Netlify Functions
 
 [[plugins]]
 package = "@netlify/plugin-nextjs"
