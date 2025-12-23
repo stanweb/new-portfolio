@@ -6,6 +6,7 @@ import { notFound } from "next/navigation"
 import axios from "axios"
 import MarkdownRenderer from "@/components/markdown-renderer";
 import {BLOG_INDEX_URL} from "@/lib/constants";
+import { Metadata } from "next"
 
 
 // Interface for the blog post index
@@ -30,13 +31,43 @@ async function getBlogPosts(): Promise<BlogPostIndex[]> {
 }
 
 async function getBlogContent(url: string): Promise<string> {
-  console.log()
   try {
     const response = await axios.get(`${url}?cachebust=${Date.now()}`)
     return response.data
   } catch (error) {
     console.error("Failed to fetch blog content", error)
     return ""
+  }
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const posts = await getBlogPosts()
+  const post = posts.find((p) => p.slug === slug)
+
+  if (!post) {
+    return {
+      title: "Post Not Found",
+    }
+  }
+
+  return {
+    title: post.title,
+    description: post.excerpt,
+    keywords: post.tags,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      type: "article",
+      publishedTime: post.date,
+      tags: post.tags,
+      authors: ["Stanley Mutua"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+    },
   }
 }
 

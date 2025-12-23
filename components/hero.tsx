@@ -1,13 +1,52 @@
 "use client"
 
+import { useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Github, Linkedin, Mail } from "lucide-react"
-import { motion } from "framer-motion"
-import { Card } from "@/components/ui/card"
+import { motion, useScroll, useTransform } from "framer-motion"
+import Image from "next/image"
 
 export function Hero() {
+  const ref = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  })
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "20%"])
+
   return (
-    <section className="min-h-[85vh] flex items-center justify-center px-4 pt-20 pb-12">
+    <section ref={ref} className="relative min-h-[85vh] flex items-center justify-center px-4 pt-20 pb-12 overflow-hidden">
+      {/* Parallax Background for Dark Mode */}
+      <motion.div 
+        style={{ y }}
+        className="absolute -top-[20%] left-0 w-full h-[140%] -z-10 hidden md:dark:block"
+      >
+        <Image
+          src="/hero-dark.webp"
+          alt="Hero Background"
+          fill
+          className="object-cover opacity-40"
+          priority
+        />
+        <div className="absolute inset-0 bg-linear-to-b from-background/20 via-background/60 to-background" />
+      </motion.div>
+
+      {/* Parallax Background for Light Mode */}
+      <motion.div 
+        style={{ y }}
+        className="absolute -top-[20%] left-0 w-full h-[140%] -z-10 hidden md:block dark:hidden"
+      >
+        <Image
+          src="/hero-light.webp"
+          alt="Hero Background Light"
+          fill
+          className="object-cover opacity-20 grayscale" 
+          priority
+        />
+        <div className="absolute inset-0 bg-[#389560]/20 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-linear-to-b from-transparent via-background/60 to-background" />
+      </motion.div>
+
       <div className="container max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -59,36 +98,6 @@ export function Hero() {
               </a>
             </Button>
           </div>
-        </motion.div>
-        
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="space-y-8 mt-16"
-        >
-          {/*<h2 className="text-3xl md:text-4xl font-bold text-center">About Me</h2>*/}
-
-          <Card className="p-8 md:p-10 border-2 max-w-4xl mx-auto">
-            <div className="space-y-6 text-lg leading-relaxed text-left">
-              <p className="text-muted-foreground">
-                I'm a full-stack developer with a strong focus on building dynamic, high-quality websites and applications.
-                I combine creative problem-solving with solid technical execution to deliver engaging, user-focused digital
-                experiences.
-              </p>
-
-              <p className="text-muted-foreground">
-                With hands-on experience in Spring Boot, Node.js, and React, I specialize in creating responsive website with React and NextJs,
-               intuitive user interfaces that feel fast and seamless, and efficient and scalable backend solutions.
-              </p>
-
-              <p className="text-muted-foreground">
-                Driven by a passion for innovation, I’m committed to crafting clean, maintainable solutions that prioritize
-                performance, usability, and long-term impact. Turning ideas into products users genuinely enjoy.
-              </p>
-            </div>
-          </Card>
         </motion.div>
       </div>
     </section>
