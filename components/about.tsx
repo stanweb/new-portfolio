@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card"
 
 export function About() {
   return (
-    <section id="about" className="py-24 md:py-32 px-4">
+    <section id="about" className="py-24 md:py-32 px-4 bg-linear-to-t">
       <div className="container max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -14,26 +14,24 @@ export function About() {
           viewport={{ once: true }}
           className="space-y-8"
         >
-          <h2 className="text-3xl md:text-4xl font-bold">About Me</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-center">About Me</h2>
 
-          <Card className="p-8 md:p-10 border-2">
-            <div className="space-y-6 text-lg leading-relaxed">
+          <Card className="p-8 md:p-10 border-2 bg-background/80 backdrop-blur-sm">
+            <div className="space-y-6 text-lg leading-relaxed text-left">
               <p className="text-muted-foreground">
-                I'm a Backend & AI Engineer passionate about building robust, scalable systems that solve real-world
-                problems. My approach is grounded in strong computer science fundamentals—particularly data structures
-                and algorithms—which inform every architectural decision I make.
+                I'm a full-stack developer with a strong focus on building dynamic, high-quality websites and applications.
+                I combine creative problem-solving with solid technical execution to deliver engaging, user-focused digital
+                experiences.
               </p>
 
               <p className="text-muted-foreground">
-                I believe in learning by building. Whether it's implementing complex RAG pipelines, optimizing database
-                queries, or solving algorithmic challenges, I focus on creating clean, maintainable code that
-                prioritizes both performance and correctness.
+                With hands-on experience in Spring Boot, Node.js, and React, I specialize in creating responsive website with React and NextJs,
+               intuitive user interfaces that feel fast and seamless, and efficient and scalable backend solutions.
               </p>
 
               <p className="text-muted-foreground">
-                Currently exploring the intersection of traditional backend engineering and modern AI systems, with a
-                focus on making large language models practical and production-ready through techniques like vector
-                search, embeddings, and local deployment.
+                Driven by a passion for innovation, I’m committed to crafting clean, maintainable solutions that prioritize
+                performance, usability, and long-term impact. Turning ideas into products users genuinely enjoy.
               </p>
             </div>
           </Card>
