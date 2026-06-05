@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Spending Tracker Frontend",
+    "description": "A production-ready dashboard for the spending tracker backend. Users can view transaction analytics, manage budgets and categories, and access AI-powered insights.",
+    "tech": ["Next.js", "Tailwind CSS", "Shadcn/UI", "Redux", "Groq AI"],
+    "github": "https://github.com/stanweb/expense-tracker-frontend",
+    "live": ""
+  },
+  {
+    "title": "Spending Tracker Backend",
+    "description": "RESTful API built with Spring Boot for personal finance tracking. Supports SQLite and MySQL, featuring transaction categorization, budget management, and analytics endpoints.",
+    "tech": ["Spring Boot", "SQLite", "MySQL"],
+    "github": "https://github.com/stanweb/expense-tracker-backend",
+    "live": ""
+  },
+  {
+    "title": "Spending Tracker – Full Solution",
+    "description": "A complete self-hosted solution combining the frontend and backend via Docker Compose for easy deployment.",
+    "tech": ["Docker", "Docker Compose", "Docker Hub", "Github Actions"],
+    "github": "https://github.com/stanweb/spending-tracker-docker-compose",
+    "live": ""
+  },
+  {
+    "title": "Movie Discovery Website",
+    "description": "A movie and series streaming platform that fetches content from the TMDB API, featuring browsing, search, and watch functionality.",
+    "tech": ["React", "TMDB API", "Redux"],
+    "github": "https://github.com/stanweb/stan-movies",
+    "live": "https://placeholder-movie.netlify.app/"
+  }
+]

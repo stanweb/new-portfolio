@@ -126,3 +126,109 @@
     scroll-behavior: smooth;
   }
 }
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
+
+/* Aurora background */
+@keyframes aurora-drift-a {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33%      { transform: translate3d(20%, -15%, 0) scale(1.1); }
+  66%      { transform: translate3d(-15%, 20%, 0) scale(0.95); }
+}
+@keyframes aurora-drift-b {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(-25%, 15%, 0) scale(1.15); }
+}
+@keyframes aurora-drift-c {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  40%      { transform: translate3d(15%, 25%, 0) scale(0.9); }
+  80%      { transform: translate3d(-20%, -10%, 0) scale(1.05); }
+}
+
+.aurora {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.35;
+  will-change: transform;
+  pointer-events: none;
+}
+.aurora-a {
+  width: 60vw;
+  height: 60vw;
+  top: -20%;
+  left: -10%;
+  background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+  animation: aurora-drift-a 22s ease-in-out infinite;
+}
+.aurora-b {
+  width: 50vw;
+  height: 50vw;
+  top: 10%;
+  right: -15%;
+  background: radial-gradient(circle, oklch(0.7 0.18 220) 0%, transparent 70%);
+  animation: aurora-drift-b 28s ease-in-out infinite;
+}
+.aurora-c {
+  width: 45vw;
+  height: 45vw;
+  bottom: -10%;
+  left: 30%;
+  background: radial-gradient(circle, oklch(0.7 0.16 280) 0%, transparent 70%);
+  animation: aurora-drift-c 25s ease-in-out infinite;
+}
+.dark .aurora {
+  opacity: 0.45;
+}
+
+/* Word mask for text reveal */
+.word-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+.word-mask > span {
+  display: inline-block;
+}
+
+/* Marquee */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 30s linear infinite;
+  will-change: transform;
+}
+.marquee-pause:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Reduced motion: kill all infinite animations + scrub scroll-pinned transforms */
+@media (prefers-reduced-motion: reduce) {
+  .aurora,
+  .aurora-a,
+  .aurora-b,
+  .aurora-c {
+    animation: none !important;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
