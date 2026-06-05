@@ -1,0 +1,22 @@
+[
+  {
+    "icon": "Server",
+    "title": "Backend",
+    "skills": ["Java", "Spring Boot", "Node.js", "Express", "REST APIs", "GraphQL", "PostgreSQL", "MySQL", "Redis"]
+  },
+  {
+    "icon": "PanelsTopLeft",
+    "title": "Frontend",
+    "skills": ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "shadcn/ui", "HTML5", "CSS3"]
+  },
+  {
+    "icon": "Smartphone",
+    "title": "Mobile Development",
+    "skills": ["React Native", "Expo", "React Redux", "Axios"]
+  },
+  {
+    "icon": "Wrench",
+    "title": "Tools & DevOps",
+    "skills": ["Git", "Docker", "Vercel", "Netlify", "CI/CD", "Linux", "Nginx"]
+  }
+]

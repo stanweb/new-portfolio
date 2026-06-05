@@ -55,22 +55,8 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  icons: {
-    icon: [
-      {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        type: "image/png",
-      },
-    ],
-    apple: "/apple-icon.png",
+  alternates: {
+    canonical: "https://stanleykamau.netlify.app/",
   },
 }
 
