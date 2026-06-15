@@ -112,8 +112,8 @@ function DesktopStack({ projects }: { projects: Project[] }) {
       className="hidden md:block relative"
       style={{ height: `${projects.length * 100}vh` }}
     >
-      <div className="sticky top-24 flex items-center justify-center h-[calc(100vh-6rem)]">
-        <div className="relative w-full max-w-3xl h-[60vh]">
+      <div className="sticky top-24 flex items-center justify-center min-h-[calc(100vh-6rem)] py-8">
+        <div className="relative w-full max-w-3xl min-h-[60vh]">
           {projects.map((project, index) => (
             <StackedCard
               key={`${project.title}-${index}`}

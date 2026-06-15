@@ -17,7 +17,7 @@ const navigation = [
   { name: "Projects", href: "/#projects", sectionId: "projects", number: "03" },
   { name: "Blog", href: "/blog", sectionId: null, number: "04" },
   { name: "Resume", href: "/resume", sectionId: null, number: "05" },
-  { name: "Contact", href: "/#contact", sectionId: "contact", number: "06" },
+  { name: "Contact", href: "/#contact", sectionId: "contact", number: "08" },
 ]
 
 type NavItem = (typeof navigation)[number]

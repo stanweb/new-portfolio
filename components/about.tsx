@@ -12,8 +12,8 @@ interface CurrentItem {
 }
 
 const currentItems: CurrentItem[] = [
-  { icon: Briefcase, label: "Working on", value: "AI-powered tools for content teams" },
-  { icon: Code2, label: "Exploring", value: "Better RAG evaluation patterns" },
+  { icon: Briefcase, label: "Working on", value: "Banking UI at Diamond Trust Bank Kenya" },
+  { icon: Code2, label: "Exploring", value: "Observability patterns (Prometheus, Grafana, Jaeger)" },
   { icon: BookOpen, label: "Reading", value: "Designing Data-Intensive Applications" },
   { icon: Sparkles, label: "Open to", value: "Senior frontend & full-stack roles" },
 ]
@@ -34,18 +34,21 @@ export function About() {
             <Card className="p-6 md:p-8 border-2 bg-background/80 backdrop-blur-sm h-full">
               <div className="space-y-4 text-base md:text-lg leading-relaxed text-left">
                 <p className="text-muted-foreground">
-                  I&apos;m a full-stack developer with a strong focus on building dynamic, high-quality websites and
-                  applications. I combine creative problem-solving with solid technical execution to deliver engaging,
-                  user-focused digital experiences.
+                  I&apos;m Stanley — a frontend-focused full-stack engineer with 4+ years shipping production web apps.
+                  Most recently I&apos;ve been at Diamond Trust Bank Kenya, where I build customer-facing React apps on
+                  top of Node.js and Fiorano ESB integrations, and own a slice of the production support rotation for
+                  live banking systems.
                 </p>
                 <p className="text-muted-foreground">
-                  With hands-on experience in Spring Boot, Node.js, and React, I specialize in creating responsive
-                  websites with React and Next.js, intuitive user interfaces that feel fast and seamless, and efficient
-                  and scalable backend solutions.
+                  My sweet spot is the React layer: turning a brief into a fast, accessible interface that doesn&apos;t
+                  break under real-world data. Underneath that I&apos;ve shipped Spring Boot and Node.js services,
+                  maintained WordPress sites, and spent enough time on-call to care about log structure, tracing, and
+                  clear runbooks.
                 </p>
                 <p className="text-muted-foreground">
-                  Driven by a passion for innovation, I&apos;m committed to crafting clean, maintainable solutions that
-                  prioritize performance, usability, and long-term impact.
+                  Before DTB I freelanced for nine months — that&apos;s where the Spending Tracker was born. These days
+                  I&apos;m most interested in roles that mix product thinking with frontend depth, ideally where
+                  reliability is part of the brief.
                 </p>
               </div>
             </Card>

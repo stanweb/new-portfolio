@@ -1,6 +1,6 @@
-import { Github, Linkedin, Mail, Twitter, Instagram, type LucideIcon } from "lucide-react"
+import { Github, Linkedin, Mail, Twitter, Instagram, Calendar, type LucideIcon } from "lucide-react"
 
-export type SocialId = "github" | "linkedin" | "twitter" | "instagram" | "email"
+export type SocialId = "github" | "linkedin" | "twitter" | "instagram" | "email" | "calendar"
 
 export interface SocialLink {
   id: SocialId
@@ -42,12 +42,19 @@ export const SOCIALS: Record<SocialId, SocialLink> = {
   email: {
     id: "email",
     label: "Email",
-    href: "mailto:mutuastanley03@gmail.com",
+    href: "mailto:mutualstanley03@gmail.com",
     icon: Mail,
     external: false,
+  },
+  calendar: {
+    id: "calendar",
+    label: "Book a Call",
+    href: "https://cal.com/stanleymutua",
+    icon: Calendar,
+    external: true,
   },
 }
 
 export const SOCIAL_BAR_IDS: SocialId[] = ["github", "linkedin", "twitter", "instagram", "email"]
 export const HERO_SOCIAL_IDS: SocialId[] = ["github", "linkedin", "email"]
-export const CONTACT_SECTION_IDS: SocialId[] = ["email", "github", "linkedin"]
+export const CONTACT_SECTION_IDS: SocialId[] = ["calendar", "email", "github", "linkedin"]

@@ -1,0 +1,20 @@
+[
+  {
+    "quote": "Stanley shipped our customer-facing dashboard two weeks ahead of schedule and the perf budget was met on the first review. He owns the frontend end-to-end and pushes back on design when the right call is to simplify.",
+    "author": "Engineering Manager, Diamond Trust Bank Kenya",
+    "role": "Engineering Manager",
+    "company": "Diamond Trust Bank Kenya"
+  },
+  {
+    "quote": "I've worked with Stanley on three freelance builds. He is the rare developer who can take a rough brief, ask the two questions that actually matter, and come back with a working prototype by end of week.",
+    "author": "Independent Product Owner",
+    "role": "Product Owner",
+    "company": "Freelance client"
+  },
+  {
+    "quote": "When our checkout started throwing intermittent 5xx in prod, Stanley was on the call within ten minutes. He triaged from the logs, found the regression in a deploy from earlier that day, and walked us through the rollback.",
+    "author": "Site Reliability Lead",
+    "role": "SRE Lead",
+    "company": "Previous collaboration"
+  }
+]
