@@ -1,7 +1,6 @@
 import { Card } from "@/components/ui/card"
 import { Reveal } from "@/components/reveal"
 import { SectionAnchor } from "@/components/section-anchor"
-import { ScrambleText } from "@/components/scramble-text"
 import { getExperience } from "@/lib/api"
 import { Briefcase } from "lucide-react"
 
@@ -14,7 +13,7 @@ export async function Experience() {
         <Reveal className="space-y-4 mb-12 text-center">
           <SectionAnchor number="05" label="EXPERIENCE" />
           <h2 className="text-3xl md:text-4xl font-bold text-balance">
-            <ScrambleText>Where I&apos;ve worked</ScrambleText>
+            Where I&apos;ve worked
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             4+ years of production engineering — most of it in the room when things go wrong.

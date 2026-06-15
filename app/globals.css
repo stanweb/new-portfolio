@@ -188,6 +188,34 @@
   opacity: 0.45;
 }
 
+/* Hero grid breathing — subtle opacity pulse on the background grid pattern */
+@keyframes hero-grid-pulse {
+  0%, 100% { opacity: var(--hero-grid-opacity-min, 0.025); }
+  50%      { opacity: var(--hero-grid-opacity-max, 0.06); }
+}
+.hero-grid-pulse {
+  animation: hero-grid-pulse 7s ease-in-out infinite;
+}
+
+/* Orbiting keyword chips */
+.orbit-chip {
+  position: absolute;
+  font-family: var(--font-geist-mono, ui-monospace, SFMono-Regular, monospace);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: color-mix(in oklab, var(--primary) 10%, transparent);
+  color: var(--primary);
+  border: 1px solid color-mix(in oklab, var(--primary) 20%, transparent);
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  will-change: transform, opacity;
+}
+
 /* Word mask for text reveal */
 .word-mask {
   display: inline-block;
@@ -250,7 +278,8 @@
   .aurora,
   .aurora-a,
   .aurora-b,
-  .aurora-c {
+  .aurora-c,
+  .hero-grid-pulse {
     animation: none !important;
   }
   .marquee-track {

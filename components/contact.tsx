@@ -2,7 +2,6 @@ import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/reveal"
 import { SectionAnchor } from "@/components/section-anchor"
-import { ScrambleText } from "@/components/scramble-text"
 import { SOCIALS, CONTACT_SECTION_IDS } from "@/lib/social"
 
 export function Contact() {
@@ -15,7 +14,7 @@ export function Contact() {
           <Reveal className="text-center space-y-4">
             <SectionAnchor number="07" label="CONTACT" />
             <h2 className="text-3xl md:text-4xl font-bold">
-              <ScrambleText>Get In Touch</ScrambleText>
+              Get In Touch
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Interested in collaborating or discussing opportunities? Feel free to reach out.

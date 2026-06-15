@@ -2,7 +2,6 @@
 
 import { motion, useReducedMotion } from "framer-motion"
 import { type ElementType, type ReactNode } from "react"
-import { ScrambleText } from "@/components/scramble-text"
 
 interface TextRevealProps {
   children: string
@@ -56,16 +55,11 @@ export function TextReveal({
 interface HeadingRevealProps {
   children: ReactNode
   className?: string
-  /** When true and children is a string, use the scramble/decode effect. */
-  scramble?: boolean
 }
 
-export function HeadingReveal({ children, className, scramble }: HeadingRevealProps) {
+export function HeadingReveal({ children, className }: HeadingRevealProps) {
   const reduce = useReducedMotion()
   if (reduce) return <span className={className}>{children}</span>
-  if (scramble && typeof children === "string") {
-    return <ScrambleText className={className}>{children}</ScrambleText>
-  }
   return (
     <span className={`block overflow-hidden ${className ?? ""}`}>
       <motion.span

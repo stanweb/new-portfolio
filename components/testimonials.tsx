@@ -1,7 +1,6 @@
 import { Card } from "@/components/ui/card"
 import { Reveal } from "@/components/reveal"
 import { SectionAnchor } from "@/components/section-anchor"
-import { ScrambleText } from "@/components/scramble-text"
 import { getTestimonials } from "@/lib/api"
 
 export async function Testimonials() {
@@ -13,7 +12,7 @@ export async function Testimonials() {
         <Reveal className="space-y-4 mb-12 text-center">
           <SectionAnchor number="06" label="TESTIMONIALS" />
           <h2 className="text-3xl md:text-4xl font-bold text-balance">
-            <ScrambleText>What people say</ScrambleText>
+            What people say
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Feedback from people I&apos;ve shipped with. (Placeholders — swap with real quotes when you have them.)

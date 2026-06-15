@@ -14,9 +14,6 @@ export default function Home() {
     <div className="min-h-screen">
       <Navbar />
       <main>
-        {/*<div className="hidden md:block">*/}
-        {/*  <SnowfallBackground />*/}
-        {/*</div>*/}
         <Hero />
         <SectionDivider />
         <About />
