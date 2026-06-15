@@ -4,6 +4,7 @@ import { getIcon } from "@/lib/utils"
 import { getSkillCategories } from "@/lib/api"
 import { Reveal } from "@/components/reveal"
 import { SectionAnchor } from "@/components/section-anchor"
+import { ScrambleText } from "@/components/scramble-text"
 
 export async function Skills() {
   const skillCategories = await getSkillCategories()
@@ -14,7 +15,9 @@ export async function Skills() {
         <div className="space-y-12">
           <Reveal className="text-center space-y-4">
             <SectionAnchor number="02" label="SKILLS" />
-            <h2 className="text-3xl md:text-4xl font-bold">Skills &amp; Expertise</h2>
+            <h2 className="text-3xl md:text-4xl font-bold">
+              <ScrambleText>Skills &amp; Expertise</ScrambleText>
+            </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               A comprehensive toolkit for building scalable backend systems and AI applications
             </p>

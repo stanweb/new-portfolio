@@ -6,6 +6,7 @@ import { useRef } from "react"
 import type { Project } from "@/lib/api"
 import { StackedCardShell } from "@/components/stacked-card-shell"
 import { SyncIndicator, type SyncState } from "@/components/sync-indicator"
+import { TiltCard } from "@/components/tilt-card"
 
 interface ProjectsLiveProps {
   initialProjects: Project[]
@@ -91,7 +92,9 @@ function MobileCard({ project, index }: { project: Project; index: number }) {
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.6, ease: EXPO, delay: index * 0.1 }}
     >
-      <StackedCardShell project={project} index={index} total={0} size="sm" />
+      <TiltCard>
+        <StackedCardShell project={project} index={index} total={0} size="sm" />
+      </TiltCard>
     </motion.div>
   )
 }
@@ -150,7 +153,9 @@ function StackedCard({ project, index, total, progress }: StackedCardProps) {
 
   return (
     <motion.div style={{ y, scale, opacity, zIndex: 10 + index }} className="absolute inset-0">
-      <StackedCardShell project={project} index={index} total={total} size="md" />
+      <TiltCard className="h-full">
+        <StackedCardShell project={project} index={index} total={total} size="md" />
+      </TiltCard>
     </motion.div>
   )
 }

@@ -5,6 +5,7 @@ import { Skills } from "@/components/skills"
 import { Projects } from "@/components/projects"
 import { Contact } from "@/components/contact"
 import { SnowfallBackground } from "@/components/snowfall-background"
+import { SectionDivider } from "@/components/section-divider"
 
 export default function Home() {
   return (
@@ -15,9 +16,13 @@ export default function Home() {
           <SnowfallBackground />
         </div>
         <Hero />
+        <SectionDivider />
         <About />
+        <SectionDivider />
         <Skills />
+        <SectionDivider />
         <Projects />
+        <SectionDivider />
         <Contact />
       </main>
     </div>

@@ -12,7 +12,7 @@ export async function Projects() {
       <div className="container max-w-6xl mx-auto">
         <div className="text-center space-y-4 mb-12">
           <SectionAnchor number="03" label="PROJECTS" />
-          <HeadingReveal className="text-3xl md:text-4xl font-bold">
+          <HeadingReveal scramble className="text-3xl md:text-4xl font-bold">
             Featured Projects
           </HeadingReveal>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">

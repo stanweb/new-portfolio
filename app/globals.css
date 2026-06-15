@@ -211,6 +211,40 @@
   animation-play-state: paused;
 }
 
+/* Film grain — applied globally, very subtle */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 40;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 180px 180px;
+}
+.dark .grain-overlay {
+  opacity: 0.055;
+}
+
+/* CRT scanlines — only in dark mode, very faint */
+.scanline-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 41;
+  opacity: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 2px,
+    rgba(255, 255, 255, 0.025) 2px,
+    rgba(255, 255, 255, 0.025) 3px
+  );
+}
+.dark .scanline-overlay {
+  opacity: 1;
+}
+
 /* Reduced motion: kill all infinite animations + scrub scroll-pinned transforms */
 @media (prefers-reduced-motion: reduce) {
   .aurora,

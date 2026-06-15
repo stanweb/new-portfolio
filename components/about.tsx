@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card"
 import { Reveal } from "@/components/reveal"
 import { SectionAnchor } from "@/components/section-anchor"
+import { ScrambleText } from "@/components/scramble-text"
 import { BookOpen, Briefcase, Code2, Sparkles } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
 
@@ -24,7 +25,7 @@ export function About() {
         <Reveal className="space-y-4 mb-12 text-center">
           <SectionAnchor number="01" label="ABOUT" />
           <h2 className="text-3xl md:text-4xl font-bold text-balance">
-            A bit about how I work
+            <ScrambleText>A bit about how I work</ScrambleText>
           </h2>
         </Reveal>
 
