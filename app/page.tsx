@@ -20,7 +20,6 @@ export default function Home() {
         <Skills />
         <Projects />
         <Experience />
-        <Testimonials />
         <Contact />
       </main>
     </div>

@@ -15,9 +15,9 @@ const navigation = [
   { name: "About", href: "/#about", sectionId: "about", number: "01" },
   { name: "Skills", href: "/#skills", sectionId: "skills", number: "02" },
   { name: "Projects", href: "/#projects", sectionId: "projects", number: "03" },
-  { name: "Blog", href: "/blog", sectionId: null, number: "04" },
-  { name: "Resume", href: "/resume", sectionId: null, number: "05" },
-  { name: "Contact", href: "/#contact", sectionId: "contact", number: "08" },
+  { name: "Experience", href: "/#experience", sectionId: "experience", number: "04" },
+  { name: "Contact", href: "/#contact", sectionId: "contact", number: "05" },
+  { name: "Blog", href: "/blog", sectionId: null, number: "06" },
 ]
 
 type NavItem = (typeof navigation)[number]
@@ -84,8 +84,18 @@ export function Navbar() {
 
   const isActive = (item: NavItem) => {
     if (isHome && item.sectionId) return activeSection === item.sectionId
-    return pathname === item.href
+    if (pathname === item.href) return true
+    // Match subroutes (e.g. /blog/my-post highlights "Blog").
+    if (item.href !== "/" && pathname.startsWith(item.href + "/")) return true
+    return false
   }
+
+  const currentPageName = (() => {
+    if (pathname === "/") return "Home"
+    if (pathname.startsWith("/blog")) return "Blog"
+    if (pathname.startsWith("/resume")) return "Resume"
+    return null
+  })()
 
   return (
     <motion.nav
@@ -156,7 +166,15 @@ export function Navbar() {
           ref={menuRef}
           className="md:hidden absolute inset-x-0 top-full bg-background/95 backdrop-blur-xl border-b border-border shadow-lg"
         >
-          <nav className="container mx-auto px-4 py-4">
+          <nav className="container mx-auto px-4 py-4" aria-label="Primary">
+            {currentPageName && currentPageName !== "Home" && (
+              <div className="px-3 pb-3 mb-2 border-b border-border/60 flex items-center justify-between">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
+                  Currently viewing
+                </span>
+                <span className="text-xs font-mono text-primary font-semibold">{currentPageName}</span>
+              </div>
+            )}
             <ul className="flex flex-col gap-1">
               {navigation.map((item) => (
                 <li key={item.name}>
@@ -164,12 +182,14 @@ export function Navbar() {
                     href={item.href}
                     aria-current={isActive(item) ? "page" : undefined}
                     className={cn(
-                      "flex items-center gap-3 py-2.5 px-3 text-base font-medium rounded-md transition-colors hover:bg-muted",
-                      isActive(item) ? "text-primary bg-primary/5" : "text-foreground/80"
+                      "flex items-center gap-3 py-2.5 px-3 text-base font-medium rounded-md transition-colors",
+                      isActive(item)
+                        ? "text-primary bg-primary/10"
+                        : "text-foreground/80 hover:bg-muted"
                     )}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <span className="text-xs font-mono text-muted-foreground">{item.number}</span>
+                    <span className="text-xs font-mono text-muted-foreground w-6">{item.number}</span>
                     {item.name}
                   </Link>
                 </li>
@@ -184,6 +204,7 @@ export function Navbar() {
 
 function NavLink({ item, active, reduce }: { item: NavItem; active: boolean; reduce: boolean }) {
   const [hover, setHover] = useState(false)
+  const showNumber = hover || active
 
   return (
     <Link
@@ -194,57 +215,26 @@ function NavLink({ item, active, reduce }: { item: NavItem; active: boolean; red
       onFocus={() => setHover(true)}
       onBlur={() => setHover(false)}
       className={cn(
-        "relative px-3 py-2 text-sm font-medium transition-colors hover:text-primary",
-        active ? "text-primary" : "text-foreground/80"
+        "relative inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-md transition-colors",
+        active
+          ? "text-primary bg-primary/10 hover:bg-primary/15"
+          : "text-foreground/80 hover:text-foreground hover:bg-muted/60"
       )}
     >
-      {/* HUD corner brackets on the active item */}
-      {active && !reduce && (
-        <motion.span
-          layoutId="nav-brackets"
-          aria-hidden="true"
-          className="absolute inset-0 pointer-events-none"
-          transition={{ type: "spring", stiffness: 380, damping: 30 }}
-        >
-          <span className="absolute -left-0.5 -top-0.5 h-2 w-2 border-l border-t border-primary" />
-          <span className="absolute -right-0.5 -top-0.5 h-2 w-2 border-r border-t border-primary" />
-          <span className="absolute -left-0.5 -bottom-0.5 h-2 w-2 border-l border-b border-primary" />
-          <span className="absolute -right-0.5 -bottom-0.5 h-2 w-2 border-r border-b border-primary" />
-        </motion.span>
-      )}
-
-      <span className="inline-flex items-baseline gap-1.5">
-        <motion.span
-          aria-hidden="true"
-          className="text-[10px] font-mono text-muted-foreground/70"
-          initial={false}
-          animate={
-            reduce
-              ? { opacity: hover || active ? 1 : 0 }
-              : {
-                  opacity: hover || active ? 1 : 0,
-                  x: hover || active ? 0 : -4,
-                }
-          }
-          transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-        >
-          {item.number}
-        </motion.span>
-        <span>{item.name}</span>
-      </span>
-
-      {/* Glowing dot rail underline on the active item */}
-      {active && (
-        <motion.span
-          layoutId="nav-underline"
-          aria-hidden="true"
-          className="absolute inset-x-2 -bottom-0.5 h-[2px] pointer-events-none"
-          transition={{ type: "spring", stiffness: 380, damping: 30 }}
-        >
-          <span className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-primary to-transparent" />
-          <span className="absolute right-0 top-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_8px_2px_color-mix(in_oklab,var(--primary)_60%,transparent)]" />
-        </motion.span>
-      )}
+      <motion.span
+        aria-hidden="true"
+        className="font-mono text-[10px] tracking-wider text-muted-foreground/70 select-none overflow-hidden inline-block"
+        initial={false}
+        animate={
+          reduce
+            ? { width: showNumber ? "1.1em" : 0, opacity: showNumber ? 1 : 0 }
+            : { width: showNumber ? "1.1em" : 0, opacity: showNumber ? 1 : 0 }
+        }
+        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+      >
+        {item.number}
+      </motion.span>
+      <span className={cn("transition-colors", active && "font-semibold")}>{item.name}</span>
     </Link>
   )
 }

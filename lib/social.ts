@@ -49,7 +49,7 @@ export const SOCIALS: Record<SocialId, SocialLink> = {
   calendar: {
     id: "calendar",
     label: "Book a Call",
-    href: "https://cal.com/stanleymutua",
+    href: "https://cal.com/stan-mutua-k7ingl",
     icon: Calendar,
     external: true,
   },

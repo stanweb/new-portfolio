@@ -1,8 +1,9 @@
 import { Card } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/reveal"
 import { SectionAnchor } from "@/components/section-anchor"
 import { getExperience } from "@/lib/api"
-import { Briefcase } from "lucide-react"
+import { Briefcase, ArrowRight } from "lucide-react"
 
 export async function Experience() {
   const roles = await getExperience()
@@ -71,6 +72,15 @@ export async function Experience() {
             </Reveal>
           ))}
         </div>
+
+        <Reveal delay={0.2} className="mt-10 flex justify-center">
+          <Button asChild size="lg" className="group">
+            <a href="/resume">
+              View Full Resume
+              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </a>
+          </Button>
+        </Reveal>
       </div>
     </section>
   )
