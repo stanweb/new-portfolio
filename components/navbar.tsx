@@ -9,14 +9,15 @@ import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useActiveSection } from "@/hooks/use-active-section"
+import { NavClock } from "@/components/nav-clock"
 
 const navigation = [
-  { name: "About", href: "/#about", sectionId: "about" },
-  { name: "Skills", href: "/#skills", sectionId: "skills" },
-  { name: "Projects", href: "/#projects", sectionId: "projects" },
-  { name: "Blog", href: "/blog", sectionId: null },
-  { name: "Resume", href: "/resume", sectionId: null },
-  { name: "Contact", href: "/#contact", sectionId: "contact" },
+  { name: "About", href: "/#about", sectionId: "about", number: "01" },
+  { name: "Skills", href: "/#skills", sectionId: "skills", number: "02" },
+  { name: "Projects", href: "/#projects", sectionId: "projects", number: "03" },
+  { name: "Experience", href: "/#experience", sectionId: "experience", number: "04" },
+  { name: "Contact", href: "/#contact", sectionId: "contact", number: "05" },
+  { name: "Blog", href: "/blog", sectionId: null, number: "06" },
 ]
 
 type NavItem = (typeof navigation)[number]
@@ -28,7 +29,6 @@ export function Navbar() {
   const pathname = usePathname()
   const reduce = useReducedMotion()
 
-  // Active section only applies on the home page where the section IDs exist.
   const isHome = pathname === "/"
   const sectionIds = navigation
     .map((n) => n.sectionId)
@@ -36,13 +36,17 @@ export function Navbar() {
   const activeSection = useActiveSection(isHome ? sectionIds : [])
 
   // Shrink-on-scroll
-  const { scrollY } = useScroll()
+  const { scrollY, scrollYProgress } = useScroll()
   const shrinkMv = useTransform(scrollY, [0, 80], [0, 1])
   const shrink = useSpring(shrinkMv, { stiffness: 200, damping: 30 })
   const navHeight = useTransform(shrink, [0, 1], [64, 52])
   const blurPx = useTransform(shrink, [0, 1], [8, 16])
   const blurFilter = useTransform(blurPx, (v) => `blur(${v}px)`)
   const borderOpacity = useTransform(shrink, [0, 1], [0, 1])
+
+  // Scroll progress rail
+  const progress = useSpring(scrollYProgress, { stiffness: 200, damping: 30, mass: 0.4 })
+  const progressScale = useTransform(progress, (v) => v)
 
   // Mobile menu side effects
   const menuRef = useRef<HTMLDivElement>(null)
@@ -61,7 +65,6 @@ export function Navbar() {
     }
     window.addEventListener("keydown", onKey)
 
-    // Focus the first link
     const firstLink = menuRef.current?.querySelector<HTMLAnchorElement>("a")
     firstLink?.focus()
 
@@ -71,21 +74,28 @@ export function Navbar() {
     }
   }, [mobileMenuOpen])
 
-  // Close menu on route change
   useEffect(() => {
     setMobileMenuOpen(false)
   }, [pathname])
 
-  // Restore focus to trigger when menu closes
   useEffect(() => {
     if (!mobileMenuOpen) triggerRef.current?.focus({ preventScroll: true })
   }, [mobileMenuOpen])
 
-  // Helper: is a nav item "active"?
   const isActive = (item: NavItem) => {
     if (isHome && item.sectionId) return activeSection === item.sectionId
-    return pathname === item.href
+    if (pathname === item.href) return true
+    // Match subroutes (e.g. /blog/my-post highlights "Blog").
+    if (item.href !== "/" && pathname.startsWith(item.href + "/")) return true
+    return false
   }
+
+  const currentPageName = (() => {
+    if (pathname === "/") return "Home"
+    if (pathname.startsWith("/blog")) return "Blog"
+    if (pathname.startsWith("/resume")) return "Resume"
+    return null
+  })()
 
   return (
     <motion.nav
@@ -106,42 +116,29 @@ export function Navbar() {
         className="absolute inset-x-0 bottom-0 h-px bg-border"
       />
 
+      {/* Scroll progress rail */}
+      <motion.div
+        aria-hidden="true"
+        style={{
+          scaleX: reduce ? 0 : progressScale,
+          transformOrigin: "0% 50%",
+        }}
+        className="absolute inset-x-0 bottom-0 h-[2px] bg-primary shadow-[0_0_10px_2px_color-mix(in_oklab,var(--primary)_45%,transparent)] z-10"
+      />
+
       <div className="container mx-auto px-4 h-full">
         <div className="flex items-center justify-between h-full">
-          <Link
-            href="/"
-            className="flex items-center gap-2 hover:opacity-80 transition-opacity"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            <div className="relative h-8 w-8 rounded-md bg-primary/10 flex items-center justify-center text-primary text-sm font-bold">
-              SM
-            </div>
-            <span className="text-lg font-semibold">Stanley Mutua</span>
-          </Link>
+          <LogoMark onClick={() => setMobileMenuOpen(false)} reduce={!!reduce} />
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1">
             {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                aria-current={isActive(item) ? "page" : undefined}
-                className={cn(
-                  "relative px-3 py-2 text-sm font-medium transition-colors hover:text-primary",
-                  isActive(item) ? "text-primary" : "text-foreground/80"
-                )}
-              >
-                {item.name}
-                {isActive(item) && (
-                  <motion.span
-                    layoutId="nav-underline"
-                    className="absolute inset-x-2 -bottom-0.5 h-0.5 bg-primary rounded-full"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-              </Link>
+              <NavLink key={item.name} item={item} active={isActive(item)} reduce={!!reduce} />
             ))}
-            {mounted && <ThemeToggle theme={theme} setTheme={setTheme} />}
+            <div className="ml-2 flex items-center gap-2">
+              {mounted && <ThemeToggle theme={theme} setTheme={setTheme} />}
+              <NavClock />
+            </div>
           </div>
 
           {/* Mobile controls */}
@@ -169,7 +166,15 @@ export function Navbar() {
           ref={menuRef}
           className="md:hidden absolute inset-x-0 top-full bg-background/95 backdrop-blur-xl border-b border-border shadow-lg"
         >
-          <nav className="container mx-auto px-4 py-4">
+          <nav className="container mx-auto px-4 py-4" aria-label="Primary">
+            {currentPageName && currentPageName !== "Home" && (
+              <div className="px-3 pb-3 mb-2 border-b border-border/60 flex items-center justify-between">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
+                  Currently viewing
+                </span>
+                <span className="text-xs font-mono text-primary font-semibold">{currentPageName}</span>
+              </div>
+            )}
             <ul className="flex flex-col gap-1">
               {navigation.map((item) => (
                 <li key={item.name}>
@@ -177,11 +182,14 @@ export function Navbar() {
                     href={item.href}
                     aria-current={isActive(item) ? "page" : undefined}
                     className={cn(
-                      "block py-2.5 px-3 text-base font-medium rounded-md transition-colors hover:bg-muted",
-                      isActive(item) ? "text-primary bg-primary/5" : "text-foreground/80"
+                      "flex items-center gap-3 py-2.5 px-3 text-base font-medium rounded-md transition-colors",
+                      isActive(item)
+                        ? "text-primary bg-primary/10"
+                        : "text-foreground/80 hover:bg-muted"
                     )}
                     onClick={() => setMobileMenuOpen(false)}
                   >
+                    <span className="text-xs font-mono text-muted-foreground w-6">{item.number}</span>
                     {item.name}
                   </Link>
                 </li>
@@ -191,6 +199,77 @@ export function Navbar() {
         </div>
       )}
     </motion.nav>
+  )
+}
+
+function NavLink({ item, active, reduce }: { item: NavItem; active: boolean; reduce: boolean }) {
+  const [hover, setHover] = useState(false)
+  const showNumber = hover || active
+
+  return (
+    <Link
+      href={item.href}
+      aria-current={active ? "page" : undefined}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      onFocus={() => setHover(true)}
+      onBlur={() => setHover(false)}
+      className={cn(
+        "relative inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-md transition-colors",
+        active
+          ? "text-primary bg-primary/10 hover:bg-primary/15"
+          : "text-foreground/80 hover:text-foreground hover:bg-muted/60"
+      )}
+    >
+      <motion.span
+        aria-hidden="true"
+        className="font-mono text-[10px] tracking-wider text-muted-foreground/70 select-none overflow-hidden inline-block"
+        initial={false}
+        animate={
+          reduce
+            ? { width: showNumber ? "1.1em" : 0, opacity: showNumber ? 1 : 0 }
+            : { width: showNumber ? "1.1em" : 0, opacity: showNumber ? 1 : 0 }
+        }
+        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+      >
+        {item.number}
+      </motion.span>
+      <span className={cn("transition-colors", active && "font-semibold")}>{item.name}</span>
+    </Link>
+  )
+}
+
+function LogoMark({ onClick, reduce }: { onClick: () => void; reduce: boolean }) {
+  return (
+    <Link
+      href="/"
+      className="group flex items-center gap-2 hover:opacity-90 transition-opacity"
+      onClick={onClick}
+    >
+      <div className="relative h-8 w-8">
+        {/* Rotating conic ring */}
+        <motion.span
+          aria-hidden="true"
+          className="absolute -inset-px rounded-md opacity-50 group-hover:opacity-100 transition-opacity"
+          style={{
+            background:
+              "conic-gradient(from 0deg, transparent 0deg, var(--primary) 60deg, transparent 120deg, transparent 240deg, color-mix(in oklab, var(--primary) 60%, transparent) 300deg, transparent 360deg)",
+            mask: "radial-gradient(circle, transparent 55%, black 56%)",
+            WebkitMask: "radial-gradient(circle, transparent 55%, black 56%)",
+          }}
+          animate={reduce ? undefined : { rotate: 360 }}
+          transition={
+            reduce
+              ? undefined
+              : { duration: 8, ease: "linear", repeat: Infinity }
+          }
+        />
+        <div className="relative h-8 w-8 rounded-md bg-primary/10 flex items-center justify-center text-primary text-sm font-bold ring-1 ring-primary/20">
+          SM
+        </div>
+      </div>
+      <span className="text-lg font-semibold">Stanley Mutua</span>
+    </Link>
   )
 }
 

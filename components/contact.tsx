@@ -12,14 +12,16 @@ export function Contact() {
       <div className="container max-w-4xl mx-auto">
         <div className="space-y-12">
           <Reveal className="text-center space-y-4">
-            <SectionAnchor number="04" label="CONTACT" />
-            <h2 className="text-3xl md:text-4xl font-bold">Get In Touch</h2>
+            <SectionAnchor number="07" label="CONTACT" />
+            <h2 className="text-3xl md:text-4xl font-bold">
+              Get In Touch
+            </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Interested in collaborating or discussing opportunities? Feel free to reach out.
             </p>
           </Reveal>
 
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {contacts.map((contact, index) => {
               const Icon = contact.icon
               return (

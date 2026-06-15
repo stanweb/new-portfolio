@@ -188,6 +188,34 @@
   opacity: 0.45;
 }
 
+/* Hero grid breathing — subtle opacity pulse on the background grid pattern */
+@keyframes hero-grid-pulse {
+  0%, 100% { opacity: var(--hero-grid-opacity-min, 0.025); }
+  50%      { opacity: var(--hero-grid-opacity-max, 0.06); }
+}
+.hero-grid-pulse {
+  animation: hero-grid-pulse 7s ease-in-out infinite;
+}
+
+/* Orbiting keyword chips */
+.orbit-chip {
+  position: absolute;
+  font-family: var(--font-geist-mono, ui-monospace, SFMono-Regular, monospace);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: color-mix(in oklab, var(--primary) 10%, transparent);
+  color: var(--primary);
+  border: 1px solid color-mix(in oklab, var(--primary) 20%, transparent);
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  will-change: transform, opacity;
+}
+
 /* Word mask for text reveal */
 .word-mask {
   display: inline-block;
@@ -211,12 +239,47 @@
   animation-play-state: paused;
 }
 
+/* Film grain — applied globally, very subtle */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 40;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 180px 180px;
+}
+.dark .grain-overlay {
+  opacity: 0.055;
+}
+
+/* CRT scanlines — only in dark mode, very faint */
+.scanline-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 41;
+  opacity: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 2px,
+    rgba(255, 255, 255, 0.025) 2px,
+    rgba(255, 255, 255, 0.025) 3px
+  );
+}
+.dark .scanline-overlay {
+  opacity: 1;
+}
+
 /* Reduced motion: kill all infinite animations + scrub scroll-pinned transforms */
 @media (prefers-reduced-motion: reduce) {
   .aurora,
   .aurora-a,
   .aurora-b,
-  .aurora-c {
+  .aurora-c,
+  .hero-grid-pulse {
     animation: none !important;
   }
   .marquee-track {

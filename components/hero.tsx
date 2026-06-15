@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react"
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from "framer-motion"
 import { TextReveal } from "@/components/text-reveal"
 import { SOCIALS, HERO_SOCIAL_IDS, type SocialId } from "@/lib/social"
+import { OrbitChips } from "@/components/orbit-chips"
 
 const statusMessages = [
   "Available for opportunities",
@@ -94,15 +95,19 @@ export function Hero() {
         <div className="aurora aurora-c" />
         <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent,var(--background))]" />
         <div
-          className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
+          className="hero-grid-pulse absolute inset-0"
           style={{
             backgroundImage:
               "linear-gradient(var(--foreground) 1px, transparent 1px), linear-gradient(90deg, var(--foreground) 1px, transparent 1px)",
             backgroundSize: "48px 48px",
             maskImage: "radial-gradient(ellipse at center, black 30%, transparent 70%)",
             WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 70%)",
+            // CSS variables for the keyframe to interpolate between.
+            ["--hero-grid-opacity-min" as string]: "0.025",
+            ["--hero-grid-opacity-max" as string]: "0.06",
           }}
         />
+        <OrbitChips />
       </motion.div>
 
       <div className="container max-w-5xl mx-auto">

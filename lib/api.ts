@@ -39,12 +39,37 @@ export interface Project {
   tech: string[]
   github: string
   live?: string
+  /** 1-2 sentences on the user/business problem the project addresses. */
+  problem?: string
+  /** "Solo build", "Frontend lead on a 3-person team", etc. */
+  role?: string
+  /** 1-2 sentences on a measurable outcome (shipped, perf, scale). */
+  outcome?: string
+  /** Optional bullet stats rendered as a metrics row. */
+  metrics?: { label: string; value: string }[]
 }
 
 export interface SkillCategory {
   icon: string
   title: string
   skills: string[]
+}
+
+export interface ExperienceRole {
+  company: string
+  role: string
+  start: string
+  end: string
+  location?: string
+  bullets: string[]
+  tech: string[]
+}
+
+export interface Testimonial {
+  quote: string
+  author: string
+  role: string
+  company: string
 }
 
 const CONTENT_DIR = path.join(process.cwd(), "content")
@@ -61,6 +86,14 @@ export const getSkillCategories = cache(async (): Promise<SkillCategory[]> => {
 
 export const getProjects = cache(async (): Promise<Project[]> => {
   return readJSON<Project[]>("projects.json")
+})
+
+export const getExperience = cache(async (): Promise<ExperienceRole[]> => {
+  return readJSON<ExperienceRole[]>("experience.json")
+})
+
+export const getTestimonials = cache(async (): Promise<Testimonial[]> => {
+  return readJSON<Testimonial[]>("testimonials.json")
 })
 
 export const getBlogPosts = cache(async (): Promise<BlogPost[]> => {

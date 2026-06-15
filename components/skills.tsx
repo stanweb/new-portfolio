@@ -14,7 +14,9 @@ export async function Skills() {
         <div className="space-y-12">
           <Reveal className="text-center space-y-4">
             <SectionAnchor number="02" label="SKILLS" />
-            <h2 className="text-3xl md:text-4xl font-bold">Skills &amp; Expertise</h2>
+            <h2 className="text-3xl md:text-4xl font-bold">
+              Skills &amp; Expertise
+            </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               A comprehensive toolkit for building scalable backend systems and AI applications
             </p>
