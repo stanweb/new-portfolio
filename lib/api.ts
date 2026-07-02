@@ -97,6 +97,16 @@ export const getTestimonials = cache(async (): Promise<Testimonial[]> => {
 })
 
 export const getBlogPosts = cache(async (): Promise<BlogPost[]> => {
+  const { BLOGS_JSON_URL } = await import("./constants")
+  try {
+    const res = await fetch(BLOGS_JSON_URL, { next: { revalidate: 60 } })
+    if (res.ok) {
+      const posts = (await res.json()) as BlogPost[]
+      return [...posts].sort((a, b) => (a.date < b.date ? 1 : -1))
+    }
+  } catch {
+    // fall through to local file
+  }
   const posts = await readJSON<BlogPost[]>("blogs.json")
   return [...posts].sort((a, b) => (a.date < b.date ? 1 : -1))
 })
