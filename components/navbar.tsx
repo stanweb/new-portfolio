@@ -86,8 +86,8 @@ export function Navbar() {
     if (isHome && item.sectionId) return activeSection === item.sectionId
     if (pathname === item.href) return true
     // Match subroutes (e.g. /blog/my-post highlights "Blog").
-    if (item.href !== "/" && pathname.startsWith(item.href + "/")) return true
-    return false
+    return item.href !== "/" && pathname.startsWith(item.href + "/");
+
   }
 
   const currentPageName = (() => {
@@ -123,7 +123,7 @@ export function Navbar() {
           scaleX: reduce ? 0 : progressScale,
           transformOrigin: "0% 50%",
         }}
-        className="absolute inset-x-0 bottom-0 h-[2px] bg-primary shadow-[0_0_10px_2px_color-mix(in_oklab,var(--primary)_45%,transparent)] z-10"
+        className="absolute inset-x-0 bottom-0 h-0.5 bg-primary shadow-[0_0_10px_2px_color-mix(in_oklab,var(--primary)_45%,transparent)] z-10"
       />
 
       <div className="container mx-auto px-4 h-full">
@@ -265,10 +265,10 @@ function LogoMark({ onClick, reduce }: { onClick: () => void; reduce: boolean })
           }
         />
         <div className="relative h-8 w-8 rounded-md bg-primary/10 flex items-center justify-center text-primary text-sm font-bold ring-1 ring-primary/20">
-          SM
+          SK
         </div>
       </div>
-      <span className="text-lg font-semibold">Stanley Mutua</span>
+      <span className="text-lg font-semibold">Stanley Kamau</span>
     </Link>
   )
 }

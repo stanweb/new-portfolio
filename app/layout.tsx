@@ -15,37 +15,37 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://stanleykamau.netlify.app/"),
+  metadataBase: new URL("https://stanspace.uk/"),
   title: {
-    default: "Stanley Mutua | Fullstack Developer",
-    template: "%s | Stanley Mutua",
+    default: "Stanley Kamau | Fullstack Developer",
+    template: "%s | Stanley Kamau",
   },
   description:
     "Fullstack Engineer specializing in scalable systems, AI technologies, and modern web development.",
-  keywords: ["Fullstack Developer", "Software Engineer", "React", "Next.js", "Node.js", "AI", "RAG", "Stanley Mutua"],
-  authors: [{ name: "Stanley Mutua" }],
-  creator: "Stanley Mutua",
+  keywords: ["Fullstack Developer", "Software Engineer", "React", "Next.js", "Node.js", "AI", "RAG", "Stanley Kamau"],
+  authors: [{ name: "Stanley Kamau" }],
+  creator: "Stanley Kamau",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://stanleykamau.netlify.app/",
-    title: "Stanley Mutua | Fullstack Developer",
+    url: "https://stanspace.uk/",
+    title: "Stanley Kamau | Fullstack Developer",
     description: "Fullstack Engineer specializing in scalable systems, AI technologies, and modern web development.",
-    siteName: "Stanley Mutua Portfolio",
+    siteName: "Stanley Kamau Portfolio",
     images: [
       {
-        url: "/og-image.png", // You should add this image to your public folder
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Stanley Mutua Portfolio",
+        alt: "Stanley Kamau Portfolio",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Stanley Mutua | Fullstack Developer",
+    title: "Stanley Kamau | Fullstack Developer",
     description: "Fullstack Engineer specializing in scalable systems, AI technologies, and modern web development.",
-    creator: "@stanleymutua", // Replace with your Twitter handle
+    creator: "@stanleymutua",
     images: ["/og-image.png"],
   },
   robots: {
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://stanleykamau.netlify.app/",
+    canonical: "https://stanspace.uk/",
   },
 }
 
