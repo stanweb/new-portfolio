@@ -13,11 +13,10 @@ import { NavClock } from "@/components/nav-clock"
 
 const navigation = [
   { name: "About", href: "/#about", sectionId: "about", number: "01" },
-  { name: "Skills", href: "/#skills", sectionId: "skills", number: "02" },
+  { name: "Experience", href: "/#experience", sectionId: "experience", number: "02" },
   { name: "Projects", href: "/#projects", sectionId: "projects", number: "03" },
-  { name: "Experience", href: "/#experience", sectionId: "experience", number: "04" },
+  { name: "Skills", href: "/#skills", sectionId: "skills", number: "04" },
   { name: "Contact", href: "/#contact", sectionId: "contact", number: "05" },
-  { name: "Blog", href: "/blog", sectionId: null, number: "06" },
 ]
 
 type NavItem = (typeof navigation)[number]
@@ -85,9 +84,7 @@ export function Navbar() {
   const isActive = (item: NavItem) => {
     if (isHome && item.sectionId) return activeSection === item.sectionId
     if (pathname === item.href) return true
-    // Match subroutes (e.g. /blog/my-post highlights "Blog").
-    return item.href !== "/" && pathname.startsWith(item.href + "/");
-
+    return item.href !== "/" && pathname.startsWith(item.href + "/")
   }
 
   const currentPageName = (() => {
@@ -100,7 +97,7 @@ export function Navbar() {
   return (
     <motion.nav
       style={{ height: reduce ? 64 : navHeight }}
-      className="fixed top-0 w-full bg-background/70 border-b border-border/0 z-50"
+      className="fixed top-0 w-full bg-background/70 border-b border-border/0 z-(--z-nav)"
     >
       <motion.div
         aria-hidden="true"
@@ -195,6 +192,24 @@ export function Navbar() {
                 </li>
               ))}
             </ul>
+            <div className="mt-3 pt-3 border-t border-border/60">
+              <Link
+                href="/blog"
+                className="flex items-center gap-3 py-2.5 px-3 text-base font-medium rounded-md text-foreground/80 hover:bg-muted transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <span className="text-xs font-mono text-muted-foreground w-6">06</span>
+                Blog
+              </Link>
+              <Link
+                href="/resume"
+                className="flex items-center gap-3 py-2.5 px-3 text-base font-medium rounded-md text-foreground/80 hover:bg-muted transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <span className="text-xs font-mono text-muted-foreground w-6">07</span>
+                Resume
+              </Link>
+            </div>
           </nav>
         </div>
       )}

@@ -40,7 +40,7 @@ export function ScrollToTop({ threshold = 400, className }: ScrollToTopProps) {
           whileHover={reduce ? undefined : { y: -2 }}
           whileTap={reduce ? undefined : { scale: 0.92 }}
           className={cn(
-            "fixed bottom-6 right-6 z-50 h-11 w-11 rounded-full",
+            "fixed bottom-6 right-6 z-(--z-scrolltop) h-11 w-11 rounded-full",
             "bg-primary text-primary-foreground",
             "shadow-lg shadow-primary/30",
             "ring-1 ring-primary/40",

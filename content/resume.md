@@ -1,5 +1,5 @@
 # Stanley Kamau
-**Frontend-Focused Full Stack Engineer**  
+**Software Engineer — Frontend & Systems**  
 *Building scalable, reliable, user-centric web applications*
 
 📍 Nairobi, Kenya | 📞 +254 748 891 859 | 📧 mutualstanley03@gmail.com
@@ -7,7 +7,7 @@
 ---
 
 ## 👤 About Me
-Frontend-focused Full Stack Engineer with **4+ years of professional experience** building, deploying, and supporting production-ready web applications. Strong emphasis on **React-based frontend development, UI performance, accessibility, and reliability**, backed by solid backend and production support experience. Comfortable working in **onsite, cross-functional environments**, collaborating closely with designers, QA, and product teams to solve real-world business problems.
+Software Engineer with **4+ years of professional experience** shipping and supporting production-ready web applications in banking and fintech. Strong emphasis on **React-based frontend development, UI performance, accessibility, and system reliability**, backed by solid backend and production support experience. Comfortable working in **onsite, cross-functional environments**, collaborating closely with designers, QA, and product teams to solve real-world business problems. Currently on the production support rotation for live banking systems handling thousands of daily transactions.
 
 ---
 
@@ -15,13 +15,13 @@ Frontend-focused Full Stack Engineer with **4+ years of professional experience*
 
 | Category | Technologies |
 |----------|--------------|
-| **Frontend** | React.js, Next.js, React Native, HTML5, CSS3, Responsive Design, UI Performance Optimization |
+| **Frontend** | React.js, Next.js, React Native, HTML5, CSS3, Responsive Design, UI Performance Optimization, Accessibility (a11y), Core Web Vitals |
 | **Languages** | JavaScript, TypeScript, Java |
-| **Backend** | Node.js, Express.js, Spring Boot, REST APIs |
-| **Databases** | MySQL, MongoDB, Redis, Neo4J |
-| **Cloud & DevOps** | AWS, Docker, Git, GitHub Actions |
-| **Monitoring & Production Support** | CloudWatch, Prometheus, Grafana, Jaeger, Log Analysis, Debugging, Incident Resolution |
-| **Practices** | Agile/Scrum, Onsite Collaboration, Production Support, Incident Management |
+| **Backend** | Node.js, Express.js, Spring Boot, REST APIs, GraphQL |
+| **Databases** | MySQL, MongoDB, Redis, Neo4J, PostgreSQL, SQLite |
+| **Cloud & DevOps** | AWS, Docker, Git, GitHub Actions, CI/CD, Linux, Nginx |
+| **Monitoring & Production Support** | CloudWatch, Prometheus, Grafana, Jaeger, Log Analysis, Debugging, Incident Resolution, Performance Tuning |
+| **Practices** | Agile/Scrum, Onsite Collaboration, Production Support, Incident Management, Runbook Development |
 
 ---
 
@@ -30,28 +30,22 @@ Frontend-focused Full Stack Engineer with **4+ years of professional experience*
 ### **Software Engineer** — Diamond Trust Bank Kenya
 *Oct 2022 – Present | Nairobi, Kenya*
 
-- Designed, developed, and maintained **frontend-heavy enterprise web applications** using **React.js**, focusing on usability, responsiveness, and performance
+- Led frontend development for **customer-facing enterprise banking portals** using **React.js**, focusing on usability, responsiveness, and performance under production load
 - Collaborated onsite with **product managers, designers, QA, and backend teams** to deliver reliable internal and customer-facing systems
+- Provided **production support** for live banking systems, including frontend/backend debugging, log analysis, incident resolution, and performance tuning
+- Participated in **on-call rotation**, reducing incident MTTR through structured runbooks and clear escalation paths
 - Designed and built **customer-facing API user guides and technical documentation**, improving developer experience and partner onboarding
 - Developed and maintained **two WordPress websites** for the bank, ensuring UI consistency, performance optimization, and security best practices
 - Built and consumed **REST APIs** and enterprise integrations using **Node.js and Fiorano ESB/MSB**
-- Provided **production support**, including:
-    - Frontend and backend **debugging**
-    - Log analysis and issue triaging
-    - Incident resolution and root cause analysis
-    - Performance tuning for live banking systems
 - Participated in release planning, post-incident reviews, and continuous improvement initiatives
 
 ### **Full Stack Developer** — Freelance / Remote
-*January 2022 – October 2022*
+*January 2022 – October 2022 | Remote*
 
 - Designed and built **frontend-driven web applications** using **React.js** and modern UI patterns
-- Developed a **Spending Tracker web application** featuring:
-    - User authentication
-    - Expense categorization
-    - Dashboards and real-time summaries
-    - Persistent data storage
-- Integrated frontend applications with **RESTful APIs** and databases
+- Developed a **Spending Tracker web application** featuring user authentication, expense categorization, dashboards with real-time summaries, and persistent data storage
+- Built a **Spring Boot REST API** with dual-database support (SQLite/MySQL) via single configuration flag
+- Containerized and deployed via **Docker Compose** with CI/CD pipeline for versioned image builds
 - Optimized UI performance, fixed bugs, and supported production deployments
 - Worked closely with clients to refine requirements and deliver polished, user-focused solutions
 
@@ -66,4 +60,4 @@ Jomo Kenyatta University of Agriculture and Technology — Nairobi, Kenya
 ## 📜 Certifications
 - React.js
 - Java Spring Boot *(In Progress)*
-- ITIL 4 – Foundation  
+- ITIL 4 – Foundation

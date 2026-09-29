@@ -20,7 +20,7 @@ export default function MarkdownRenderer({
                                              className = "",
                                          }: MarkdownRendererProps) {
     return (
-        <div className={`prose prose-neutral dark:prose-invert max-w-none ${className}`}>
+        <div className={`max-w-none ${className}`}>
             <ReactMarkdown
                 remarkPlugins={[remarkGfm, remarkMath, remarkToc]}
                 rehypePlugins={[rehypeRaw, rehypeSlug]}

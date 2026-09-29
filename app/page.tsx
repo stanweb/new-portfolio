@@ -1,25 +1,27 @@
 import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
 import { About } from "@/components/about"
-import { Skills } from "@/components/skills"
-import { Projects } from "@/components/projects"
 import { Experience } from "@/components/experience"
-import { Testimonials } from "@/components/testimonials"
+import { Projects } from "@/components/projects"
+import { Skills } from "@/components/skills"
+import { ArchitectureShowcase } from "@/components/architecture-showcase"
+import { WritingPreview } from "@/components/writing-preview"
 import { Contact } from "@/components/contact"
-import { SnowfallBackground } from "@/components/snowfall-background"
 import { SectionDivider } from "@/components/section-divider"
 
 export default function Home() {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <main>
+      <main id="main-content">
         <Hero />
-        <SectionDivider />
         <About />
-        <Skills />
-        <Projects />
         <Experience />
+        <Projects />
+        <SectionDivider />
+        <Skills />
+        <ArchitectureShowcase />
+        <WritingPreview />
         <Contact />
       </main>
     </div>

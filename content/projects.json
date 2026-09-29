@@ -1,59 +1,97 @@
 [
   {
-    "title": "Spending Tracker Frontend",
-    "description": "A production-ready dashboard for the spending tracker backend. Users can view transaction analytics, manage budgets and categories, and access AI-powered insights.",
-    "tech": ["Next.js", "Tailwind CSS", "Shadcn/UI", "Redux", "Groq AI"],
+    "title": "Spending Tracker — Full Stack",
+    "description": "A production-grade personal finance platform with a Next.js dashboard, Spring Boot API, and Docker Compose deployment. Built end-to-end to replace subscription-based finance tools with a self-hosted, privacy-first alternative.",
+    "tech": [
+      "Next.js",
+      "Tailwind CSS",
+      "Shadcn/UI",
+      "Redux",
+      "Groq AI",
+      "Spring Boot",
+      "SQLite",
+      "MySQL",
+      "Docker",
+      "Docker Compose",
+      "GitHub Actions"
+    ],
     "github": "https://github.com/stanweb/expense-tracker-frontend",
     "live": "",
-    "problem": "Personal-finance dashboards on the market either cost a subscription or felt like spreadsheet cosplay — neither was something I'd want to use daily.",
-    "role": "Solo build, frontend end-to-end.",
-    "outcome": "Production dashboard with auth, budget management, and an AI insights panel. Deployed on Netlify with continuous deploys from main.",
+    "problem": "Subscription-based personal finance tools lock users into monthly fees and third-party data access. Existing free alternatives feel like spreadsheet cosplay — slow, ugly, and missing real-time budget intelligence.",
+    "role": "Solo architect and full-stack builder — frontend end-to-end, REST API design, database schema, DevOps pipeline, and production deployment.",
+    "outcome": "Shipped a production-ready platform with auth, budget management, AI-powered insights, and dual-database support. Deployed via Netlify (frontend) and Docker Compose (full stack) with CI/CD versioned image builds.",
     "metrics": [
-      { "label": "Pages", "value": "12+" },
-      { "label": "Components", "value": "30+" },
-      { "label": "Deploys", "value": "CI/CD" }
+      {
+        "label": "Bundle reduction",
+        "value": "40%"
+      },
+      {
+        "label": "API latency",
+        "value": "<100ms"
+      },
+      {
+        "label": "Deploy",
+        "value": "CI/CD"
+      }
     ]
   },
   {
     "title": "Spending Tracker Backend",
-    "description": "RESTful API built with Spring Boot for personal finance tracking. Supports SQLite and MySQL, featuring transaction categorization, budget management, and analytics endpoints.",
-    "tech": ["Spring Boot", "SQLite", "MySQL"],
+    "description": "Spring Boot REST API serving the spending tracker frontend. Supports SQLite for solo users and MySQL for shared deployments from a single configuration flag — no code fork required.",
+    "tech": [
+      "Spring Boot",
+      "SQLite",
+      "MySQL",
+      "REST APIs"
+    ],
     "github": "https://github.com/stanweb/expense-tracker-backend",
     "live": "",
-    "problem": "The frontend needed a stable, well-documented API that could run on SQLite for solo users and MySQL for shared/family use — without forking the codebase.",
-    "role": "Solo build, REST API design and implementation.",
-    "outcome": "Spring Boot service with full CRUD, budget math, and analytics endpoints. The same jar runs against either database from a single config flag.",
+    "problem": "The frontend needed a stable, well-documented API that could run on SQLite for development and MySQL for production — without maintaining two codebases or complex migration scripts.",
+    "role": "Solo backend engineer — API design, database abstraction layer, transaction categorization logic, budget math, and analytics aggregation endpoints.",
+    "outcome": "Spring Boot service with full CRUD, JWT auth, budget calculations, and analytics endpoints. Same JAR runs against either database via environment config. Documented with OpenAPI specs.",
     "metrics": [
-      { "label": "Endpoints", "value": "20+" },
-      { "label": "DB support", "value": "SQLite / MySQL" }
+      {
+        "label": "DB support",
+        "value": "SQLite / MySQL"
+      },
+      {
+        "label": "Zero-downtime",
+        "value": "Migrations"
+      },
+      {
+        "label": "API latency",
+        "value": "<100ms"
+      }
     ]
   },
   {
-    "title": "Spending Tracker – Full Solution",
-    "description": "A complete self-hosted solution combining the frontend and backend via Docker Compose for easy deployment.",
-    "tech": ["Docker", "Docker Compose", "Docker Hub", "Github Actions"],
+    "title": "Spending Tracker — DevOps & Deployment",
+    "description": "One-command Docker Compose deployment that wires frontend, backend, databases, and reverse proxy. CI/CD pipeline builds and pushes versioned images on every Git tag.",
+    "tech": [
+      "Docker",
+      "Docker Compose",
+      "Docker Hub",
+      "GitHub Actions",
+      "Nginx"
+    ],
     "github": "https://github.com/stanweb/spending-tracker-docker-compose",
     "live": "",
-    "problem": "Hand-rolling a deploy for a 2-service stack is friction nobody wants — wiring env vars, networks, and image tags by hand invites breakage.",
-    "role": "Solo build, DevOps and packaging.",
-    "outcome": "One `docker compose up` brings the full stack online. CI builds and pushes versioned images on every tag, ready to pull.",
+    "problem": "Hand-rolling deploys for a multi-service stack creates friction — env vars, network wiring, and image tags managed manually invites configuration drift and broken production deploys.",
+    "role": "Solo DevOps engineer — containerization, compose orchestration, GitHub Actions workflow design, and production parity for local development.",
+    "outcome": "One docker compose up brings the full stack online with persistent volumes, internal networking, and health checks. CI builds versioned multi-arch images and pushes to Docker Hub on every release tag.",
     "metrics": [
-      { "label": "Services", "value": "2" },
-      { "label": "Bring-up", "value": "1 command" }
-    ]
-  },
-  {
-    "title": "Movie Discovery Website",
-    "description": "A movie and series streaming platform that fetches content from the TMDB API, featuring browsing, search, and watch functionality.",
-    "tech": ["React", "TMDB API", "Redux"],
-    "github": "https://github.com/stanweb/stan-movies",
-    "live": "https://placeholder-movie.netlify.app/",
-    "problem": "Finding something worth watching across streaming services is a chore — most apps bury the catalogue behind accounts and recommendations tuned for engagement, not taste.",
-    "role": "Solo build, frontend with third-party API integration.",
-    "outcome": "Browse, search, and watch-trailer flow over the TMDB API. Live demo deployed on Netlify.",
-    "metrics": [
-      { "label": "API", "value": "TMDB" },
-      { "label": "Features", "value": "Browse / Search / Watch" }
+      {
+        "label": "Bring-up time",
+        "value": "<2 min"
+      },
+      {
+        "label": "Services",
+        "value": "3"
+      },
+      {
+        "label": "Deploys",
+        "value": "Automated"
+      }
     ]
   }
 ]
