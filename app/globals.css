@@ -29,6 +29,14 @@
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
   --radius: 0.75rem;
+  /* Layered z-index scale (single source of truth) */
+  --z-spotlight: 30;
+  --z-grain: 40;
+  --z-nav: 50;
+  --z-social: 50;
+  --z-scrolltop: 50;
+  --z-modal: 60;
+  --z-skip: 70;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -75,7 +83,8 @@
 }
 
 @theme inline {
-  /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -188,6 +197,26 @@
   opacity: 0.45;
 }
 
+
+/* Orbiting keyword chips */
+.orbit-chip {
+  position: absolute;
+  font-family: var(--font-geist-mono, ui-monospace, SFMono-Regular, monospace);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: color-mix(in oklab, var(--primary) 10%, transparent);
+  color: var(--primary);
+  border: 1px solid color-mix(in oklab, var(--primary) 20%, transparent);
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  will-change: transform, opacity;
+}
+
 /* Word mask for text reveal */
 .word-mask {
   display: inline-block;
@@ -198,17 +227,39 @@
   display: inline-block;
 }
 
-/* Marquee */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+
+/* Film grain — applied globally, very subtle */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--z-grain);
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 180px 180px;
 }
-.marquee-track {
-  animation: marquee 30s linear infinite;
-  will-change: transform;
+.dark .grain-overlay {
+  opacity: 0.055;
 }
-.marquee-pause:hover .marquee-track {
-  animation-play-state: paused;
+
+/* CRT scanlines — only in dark mode, very faint */
+.scanline-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--z-grain);
+  opacity: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 2px,
+    rgba(255, 255, 255, 0.025) 2px,
+    rgba(255, 255, 255, 0.025) 3px
+  );
+}
+.dark .scanline-overlay {
+  opacity: 1;
 }
 
 /* Reduced motion: kill all infinite animations + scrub scroll-pinned transforms */
@@ -217,9 +268,6 @@
   .aurora-a,
   .aurora-b,
   .aurora-c {
-    animation: none !important;
-  }
-  .marquee-track {
     animation: none !important;
   }
   *,
@@ -232,3 +280,110 @@
   }
 }
 
+
+/* Elements that only exist for the printed resume */
+.resume-print-links {
+  display: none;
+}
+
+/* Resume page print styles */
+@page {
+  margin: 1.6cm;
+}
+
+@media print {
+  .resume-sidebar {
+    display: none !important;
+  }
+  .resume-main {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  /* Neutralize screen-only chrome & atmospheric overlays */
+  nav, footer, .scroll-to-top, .command-palette, .social-bar,
+  .grain-overlay, .scanline-overlay, .cursor-spotlight {
+    display: none !important;
+  }
+
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  /* Reset any theme-derived colors/backgrounds inside the resume body
+     so printing from dark mode produces readable black-on-white output */
+  .resume-main,
+  .resume-main * {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  .resume-main,
+  .resume-main p,
+  .resume-main li,
+  .resume-main h1,
+  .resume-main h2,
+  .resume-main h3,
+  .resume-main h4,
+  .resume-main td,
+  .resume-main th,
+  .resume-main strong,
+  .resume-main span {
+    color: #000 !important;
+  }
+
+  .resume-content h1 {
+    font-size: 24pt !important;
+  }
+  .resume-content h2 {
+    font-size: 14pt !important;
+    border-bottom: 1pt solid #ccc !important;
+    break-after: avoid;
+  }
+  .resume-content h3 {
+    break-after: avoid;
+  }
+  .resume-content p,
+  .resume-content li {
+    font-size: 10pt !important;
+  }
+  .resume-content li {
+    break-inside: avoid;
+  }
+  .resume-content table {
+    break-inside: avoid;
+  }
+  .resume-content th {
+    background: #f5f5f5 !important;
+    border: 0.5pt solid #bbb !important;
+  }
+  .resume-content td {
+    border: 0.5pt solid #bbb !important;
+  }
+  .resume-content hr {
+    border-color: #ccc !important;
+  }
+
+  .resume-skill-chip {
+    border: 1pt solid #ccc !important;
+  }
+  .resume-timeline-line {
+    display: none !important;
+  }
+
+  /* Print-only contact links bar (screen-hidden) */
+  .resume-print-links {
+    display: block !important;
+    font-size: 9pt !important;
+    color: #000 !important;
+    border-bottom: 1pt solid #ccc;
+    padding-bottom: 6pt;
+    margin-bottom: 10pt;
+  }
+
+  a {
+    color: #000 !important;
+    text-decoration: none !important;
+  }
+}

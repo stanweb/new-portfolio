@@ -10,14 +10,14 @@ export const metadata: Metadata = {
   description: "Explore thoughts and tutorials on fullstack development, software engineering, and AI.",
   alternates: { canonical: `${SITE_URL}/blog` },
   openGraph: {
-    title: "Writing & Notes | Stanley Mutua",
+    title: "Writing & Notes | Stanley Kamau",
     description: "Explore thoughts and tutorials on fullstack development, software engineering, and AI.",
     type: "website",
     url: `${SITE_URL}/blog`,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Writing & Notes | Stanley Mutua",
+    title: "Writing & Notes | Stanley Kamau",
     description: "Explore thoughts and tutorials on fullstack development, software engineering, and AI.",
   },
 }

@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card"
 import { Reveal } from "@/components/reveal"
 import { SectionAnchor } from "@/components/section-anchor"
-import { BookOpen, Briefcase, Code2, Sparkles } from "lucide-react"
+import { BookOpen, Briefcase, Code2, Sparkles, Pencil } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
 
 interface CurrentItem {
@@ -11,10 +11,11 @@ interface CurrentItem {
 }
 
 const currentItems: CurrentItem[] = [
-  { icon: Briefcase, label: "Working on", value: "AI-powered tools for content teams" },
-  { icon: Code2, label: "Exploring", value: "Better RAG evaluation patterns" },
-  { icon: BookOpen, label: "Reading", value: "Designing Data-Intensive Applications" },
-  { icon: Sparkles, label: "Open to", value: "Senior frontend & full-stack roles" },
+  { icon: Briefcase, label: "Working on", value: "Banking UI systems at Diamond Trust Bank Kenya" },
+  { icon: Code2, label: "Exploring", value: "Event-driven architectures & observability at scale" },
+  { icon: BookOpen, label: "Reading", value: "Designing Data-Intensive Applications by Martin Kleppmann" },
+  { icon: Pencil, label: "Writing about", value: "Reducing React re-renders and production incident response" },
+  { icon: Sparkles, label: "Open to", value: "Senior frontend & full-stack roles in fintech / high-growth" },
 ]
 
 export function About() {
@@ -24,7 +25,7 @@ export function About() {
         <Reveal className="space-y-4 mb-12 text-center">
           <SectionAnchor number="01" label="ABOUT" />
           <h2 className="text-3xl md:text-4xl font-bold text-balance">
-            A bit about how I work
+            How I work
           </h2>
         </Reveal>
 
@@ -33,18 +34,20 @@ export function About() {
             <Card className="p-6 md:p-8 border-2 bg-background/80 backdrop-blur-sm h-full">
               <div className="space-y-4 text-base md:text-lg leading-relaxed text-left">
                 <p className="text-muted-foreground">
-                  I&apos;m a full-stack developer with a strong focus on building dynamic, high-quality websites and
-                  applications. I combine creative problem-solving with solid technical execution to deliver engaging,
-                  user-focused digital experiences.
+                  I&apos;m Stanley — a software engineer who ships production systems for banking and fintech. 
+                  At Diamond Trust Bank Kenya, I lead frontend development for customer-facing banking portals 
+                  and own a slice of the production support rotation for live systems handling thousands of daily transactions.
                 </p>
                 <p className="text-muted-foreground">
-                  With hands-on experience in Spring Boot, Node.js, and React, I specialize in creating responsive
-                  websites with React and Next.js, intuitive user interfaces that feel fast and seamless, and efficient
-                  and scalable backend solutions.
+                  My sweet spot is the intersection of UI performance and system reliability: turning complex requirements 
+                  into fast, accessible interfaces that don&apos;t break under real-world load. Underneath that, I&apos;ve shipped 
+                  Spring Boot and Node.js services, maintained WordPress estates, and spent enough time on-call to care deeply 
+                  about structured logging, distributed tracing, and runbooks that actually work.
                 </p>
                 <p className="text-muted-foreground">
-                  Driven by a passion for innovation, I&apos;m committed to crafting clean, maintainable solutions that
-                  prioritize performance, usability, and long-term impact.
+                  Before DTB, I freelanced for nine months — that&apos;s where the Spending Tracker was born. 
+                  These days I&apos;m most interested in roles that mix product thinking with frontend depth, 
+                  ideally where observability and reliability are first-class citizens of the engineering culture.
                 </p>
               </div>
             </Card>

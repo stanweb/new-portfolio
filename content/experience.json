@@ -1,0 +1,29 @@
+[
+  {
+    "company": "Diamond Trust Bank Kenya",
+    "role": "Software Engineer",
+    "start": "Oct 2022",
+    "end": "Present",
+    "location": "Nairobi, Kenya",
+    "bullets": [
+      "Designed, developed, and maintained frontend-heavy enterprise web apps in React.js, with a focus on usability, responsiveness, and performance.",
+      "Built and consumed REST APIs and enterprise integrations using Node.js and Fiorano ESB/MSB.",
+      "Provided production support: frontend and backend debugging, log analysis, incident resolution, and performance tuning for live banking systems.",
+      "Wrote customer-facing API user guides and technical documentation that improved partner onboarding."
+    ],
+    "tech": ["React.js", "Node.js", "Fiorano ESB", "WordPress", "CloudWatch", "Prometheus", "Grafana"]
+  },
+  {
+    "company": "Freelance / Remote",
+    "role": "Full Stack Developer",
+    "start": "Jan 2022",
+    "end": "Oct 2022",
+    "location": "Remote",
+    "bullets": [
+      "Built the Spending Tracker web application: user authentication, expense categorization, dashboards with real-time summaries, and persistent data storage.",
+      "Integrated frontend applications with RESTful APIs and databases; optimised UI performance and supported production deployments.",
+      "Worked directly with clients to refine requirements and ship polished, user-focused solutions."
+    ],
+    "tech": ["React.js", "Node.js", "REST APIs", "MySQL"]
+  }
+]

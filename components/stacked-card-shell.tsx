@@ -1,7 +1,8 @@
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ExternalLink, Github } from "lucide-react"
+import { ExternalLink, Github, ChevronDown } from "lucide-react"
 import type { Project } from "@/lib/api"
+import { CaseStudySection } from "@/components/case-study-section"
 
 interface StackedCardShellProps {
   project: Project
@@ -23,6 +24,8 @@ export function StackedCardShell({ project, index, total, size = "md" }: Stacked
     size === "md"
       ? "shadow-2xl shadow-primary/5 bg-card/95 backdrop-blur-sm"
       : ""
+
+  const hasCaseStudy = Boolean(project.problem || project.role || project.outcome || project.metrics?.length)
 
   return (
     <Card className={`${padding} h-full flex flex-col hover:border-primary transition-colors group ${cardClass}`}>
@@ -48,6 +51,15 @@ export function StackedCardShell({ project, index, total, size = "md" }: Stacked
           ))}
         </div>
       </div>
+
+      {hasCaseStudy && (
+        <CaseStudySection
+          problem={project.problem}
+          role={project.role}
+          outcome={project.outcome}
+          metrics={project.metrics}
+        />
+      )}
 
       <div className={`flex gap-3 ${size === "md" ? "pt-6" : "pt-4"}`}>
         <Button size="sm" variant="outline" asChild className="flex-1 bg-transparent">

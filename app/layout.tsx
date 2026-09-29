@@ -4,45 +4,43 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
 import { SocialBar } from "@/components/social-bar"
+import { SmoothScroll } from "@/components/smooth-scroll"
+import { CursorSpotlight } from "@/components/cursor-spotlight"
+import { GrainOverlay } from "@/components/grain-overlay"
+import { ScrollToTop } from "@/components/scroll-to-top"
+import { CommandPalette } from "@/components/command-palette"
+import { Footer } from "@/components/footer"
+import { Toaster } from "@/components/ui/sonner"
 
 import "./globals.css"
 
-const _geist = Geist({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
+const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" })
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://stanleykamau.netlify.app/"),
+  metadataBase: new URL("https://stanspace.uk/"),
   title: {
-    default: "Stanley Mutua | Fullstack Developer",
-    template: "%s | Stanley Mutua",
+    default: "Stanley Kamau | Software Engineer — Frontend & Systems",
+    template: "%s | Stanley Kamau",
   },
   description:
-    "Fullstack Engineer specializing in scalable systems, AI technologies, and modern web development.",
-  keywords: ["Fullstack Developer", "Software Engineer", "React", "Next.js", "Node.js", "AI", "RAG", "Stanley Mutua"],
-  authors: [{ name: "Stanley Mutua" }],
-  creator: "Stanley Mutua",
+    "Software Engineer shipping scalable systems, production banking systems & AI technologies, and modern web development.",
+  keywords: ["Fullstack Developer", "Software Engineer", "React", "Next.js", "Node.js", "AI", "RAG", "Stanley Kamau"],
+  authors: [{ name: "Stanley Kamau" }],
+  creator: "Stanley Kamau",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://stanleykamau.netlify.app/",
-    title: "Stanley Mutua | Fullstack Developer",
-    description: "Fullstack Engineer specializing in scalable systems, AI technologies, and modern web development.",
-    siteName: "Stanley Mutua Portfolio",
-    images: [
-      {
-        url: "/og-image.png", // You should add this image to your public folder
-        width: 1200,
-        height: 630,
-        alt: "Stanley Mutua Portfolio",
-      },
-    ],
+    url: "https://stanspace.uk/",
+    title: "Stanley Kamau | Software Engineer — Frontend & Systems",
+    description: "Software Engineer shipping scalable systems, production banking systems & AI technologies, and modern web development.",
+    siteName: "Stanley Kamau Portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Stanley Mutua | Fullstack Developer",
-    description: "Fullstack Engineer specializing in scalable systems, AI technologies, and modern web development.",
-    creator: "@stanleymutua", // Replace with your Twitter handle
-    images: ["/og-image.png"],
+    title: "Stanley Kamau | Software Engineer — Frontend & Systems",
+    description: "Software Engineer shipping scalable systems, production banking systems & AI technologies, and modern web development.",
+    creator: "@stanleymutua",
   },
   robots: {
     index: true,
@@ -56,7 +54,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://stanleykamau.netlify.app/",
+    canonical: "https://stanspace.uk/",
   },
 }
 
@@ -67,10 +65,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`font-sans antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-(--z-skip) focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-primary-foreground focus:shadow-lg"
+        >
+          Skip to content
+        </a>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <SmoothScroll />
+          <CursorSpotlight />
+          <GrainOverlay />
           <SocialBar />
           {children}
+          <Footer />
+          <ScrollToTop />
+          <CommandPalette />
+          <Toaster />
         </ThemeProvider>
         <Analytics />
       </body>
