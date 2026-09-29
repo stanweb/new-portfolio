@@ -19,7 +19,7 @@ export function SocialBar() {
         x: hidden ? -20 : 0,
       }}
       transition={{ duration: reduce ? 0 : 0.5, delay: reduce ? 0 : 1 }}
-      className="fixed left-4 top-1/2 -translate-y-1/2 hidden md:flex flex-col items-center gap-4 z-50"
+      className="fixed left-4 top-1/2 -translate-y-1/2 hidden md:flex flex-col items-center gap-4 z-(--z-social)"
     >
       <span
         aria-hidden="true"

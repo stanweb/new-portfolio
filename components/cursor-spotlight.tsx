@@ -40,7 +40,7 @@ export function CursorSpotlight() {
     <motion.div
       aria-hidden="true"
       style={{ background }}
-      className="pointer-events-none fixed inset-0 z-30 mix-blend-soft-light"
+      className="pointer-events-none fixed inset-0 z-(--z-spotlight) mix-blend-soft-light"
     />
   )
 }

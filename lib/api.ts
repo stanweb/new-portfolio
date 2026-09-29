@@ -50,6 +50,7 @@ export interface Project {
 }
 
 export interface SkillCategory {
+  level: string
   icon: string
   title: string
   skills: string[]
@@ -63,13 +64,6 @@ export interface ExperienceRole {
   location?: string
   bullets: string[]
   tech: string[]
-}
-
-export interface Testimonial {
-  quote: string
-  author: string
-  role: string
-  company: string
 }
 
 const CONTENT_DIR = path.join(process.cwd(), "content")
@@ -90,10 +84,6 @@ export const getProjects = cache(async (): Promise<Project[]> => {
 
 export const getExperience = cache(async (): Promise<ExperienceRole[]> => {
   return readJSON<ExperienceRole[]>("experience.json")
-})
-
-export const getTestimonials = cache(async (): Promise<Testimonial[]> => {
-  return readJSON<Testimonial[]>("testimonials.json")
 })
 
 export const getBlogPosts = cache(async (): Promise<BlogPost[]> => {

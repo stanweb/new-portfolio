@@ -7,8 +7,8 @@ import { ArrowLeft, ArrowRight } from "lucide-react"
 import type { Project } from "@/lib/api"
 import { StackedCardShell } from "@/components/stacked-card-shell"
 import { SyncIndicator, type SyncState } from "@/components/sync-indicator"
-import { TiltCard } from "@/components/tilt-card"
 import { Button } from "@/components/ui/button"
+import { Skeleton } from "@/components/ui/skeleton"
 import { cn } from "@/lib/utils"
 
 interface ProjectsLiveProps {
@@ -16,9 +16,27 @@ interface ProjectsLiveProps {
   gistUrl: string
 }
 
+/** Maps tech-stack keywords to filter categories (order = chip order). */
+const CATEGORY_RULES: { category: string; match: RegExp }[] = [
+  { category: "Frontend", match: /react|next\.js|tailwind|shadcn|redux/i },
+  { category: "Backend", match: /spring boot|node\.js|sqlite|mysql|postgres(ql)?|mongo(db)?|redis|kafka|rabbitmq|graphql|grpc/i },
+  { category: "DevOps", match: /docker|github actions|ci\/?cd/i },
+  { category: "AI", match: /\bai\b|\bgroq\b|\brag\b|\bllm\b/i },
+]
+
+function categoriesFor(project: Project): string[] {
+  const tags = project.tech.join(" ")
+  return CATEGORY_RULES.filter((r) => r.match.test(tags)).map((r) => r.category)
+}
+
 export function ProjectsLive({ initialProjects, gistUrl }: ProjectsLiveProps) {
   const [projects, setProjects] = useState<Project[]>(initialProjects)
   const [sync, setSync] = useState<SyncState>("idle")
+  const [filter, setFilter] = useState<string>("All")
+
+  const filters = ["All", ...CATEGORY_RULES.map((r) => r.category)]
+  const visible =
+    filter === "All" ? projects : projects.filter((p) => categoriesFor(p).includes(filter))
 
   useEffect(() => {
     let cancelled = false
@@ -65,14 +83,81 @@ export function ProjectsLive({ initialProjects, gistUrl }: ProjectsLiveProps) {
         centered
         className="mb-6"
       />
-      <ProjectsCarousel projects={projects} />
+
+      <div className="flex flex-wrap justify-center gap-2 mb-8" role="group" aria-label="Filter projects by category">
+        {filters.map((f) => {
+          const active = filter === f
+          const count = f === "All" ? projects.length : projects.filter((p) => categoriesFor(p).includes(f)).length
+          if (f !== "All" && count === 0) return null
+          return (
+            <button
+              key={f}
+              type="button"
+              aria-pressed={active}
+              onClick={() => setFilter(f)}
+              className={cn(
+                "px-4 py-2.5 rounded-full text-sm font-medium border transition-colors duration-200 cursor-pointer",
+                active
+                  ? "bg-primary text-primary-foreground border-primary"
+                  : "bg-transparent text-muted-foreground border-border hover:border-primary/50 hover:text-foreground"
+              )}
+            >
+              {f}
+              <span className={cn("ml-1.5 text-xs tabular-nums", active ? "text-primary-foreground/80" : "text-muted-foreground/60")}>
+                {count}
+              </span>
+            </button>
+          )
+        })}
+      </div>
+
+      {/* Screen-reader announcement for filter/swap results */}
+      <p className="sr-only" role="status" aria-live="polite">
+        {filter === "All"
+          ? `Showing all ${visible.length} projects`
+          : `Showing ${visible.length} ${filter} projects`}
+      </p>
+
+      {visible.length === 0 ? (
+        <div className="flex gap-6" aria-hidden="true">
+          <Skeleton className="h-96 flex-1 rounded-xl" />
+          <Skeleton className="h-96 w-[40%] rounded-xl hidden md:block" />
+        </div>
+      ) : (
+        <>
+          {/* Desktop+: full grid — every project visible at scroll-cost zero */}
+          <ProjectsGrid projects={visible} />
+          {/* Mobile: swipeable carousel */}
+          <ProjectsCarousel projects={visible} key={filter} />
+        </>
+      )}
     </>
   )
 }
 
-// ---------- Carousel (single component, mobile + desktop) ----------
+// ---------- Grid (md and up) ----------
 
 const EXPO = [0.22, 1, 0.36, 1] as const
+
+function ProjectsGrid({ projects }: { projects: Project[] }) {
+  return (
+    <div className="hidden md:grid grid-cols-2 gap-6">
+      {projects.map((project, i) => (
+        <motion.div
+          key={`${project.title}-${i}`}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5, ease: EXPO, delay: Math.min(i, 4) * 0.08 }}
+        >
+          <StackedCardShell project={project} index={i} total={projects.length} size="md" />
+        </motion.div>
+      ))}
+    </div>
+  )
+}
+
+// ---------- Carousel (mobile only) ----------
 
 function ProjectsCarousel({ projects }: { projects: Project[] }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -110,10 +195,8 @@ function ProjectsCarousel({ projects }: { projects: Project[] }) {
     }
   }
 
-  if (projects.length === 0) return null
-
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 md:hidden">
       <div
         className="overflow-hidden"
         ref={emblaRef}
@@ -131,22 +214,27 @@ function ProjectsCarousel({ projects }: { projects: Project[] }) {
       </div>
 
       <div className="flex items-center justify-between gap-4">
-        <div className="flex items-center gap-2" role="tablist" aria-label="Project pagination">
+        {/* Pagination dots: plain buttons with 44px hit areas inside a visual dot */}
+        <div className="flex items-center" aria-label="Project pagination">
           {projects.map((project, i) => (
             <button
               key={`dot-${project.title}-${i}`}
               type="button"
-              role="tab"
-              aria-selected={selected === i}
+              aria-current={selected === i ? "true" : undefined}
               aria-label={`Go to project ${i + 1}: ${project.title}`}
               onClick={() => emblaApi?.scrollTo(i)}
-              className={cn(
-                "h-2 rounded-full transition-all duration-300",
-                selected === i
-                  ? "w-8 bg-primary"
-                  : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/60"
-              )}
-            />
+              className="h-11 w-11 flex items-center justify-center cursor-pointer"
+            >
+              <span
+                aria-hidden="true"
+                className={cn(
+                  "h-2 rounded-full transition-all duration-300",
+                  selected === i
+                    ? "w-8 bg-primary"
+                    : "w-2 bg-muted-foreground/30 group-hover:bg-muted-foreground/60"
+                )}
+              />
+            </button>
           ))}
         </div>
 
@@ -160,7 +248,7 @@ function ProjectsCarousel({ projects }: { projects: Project[] }) {
             onClick={() => emblaApi?.scrollPrev()}
             disabled={!canScrollPrev}
             aria-label="Previous project"
-            className="h-9 w-9"
+            className="h-11 w-11"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden="true" />
           </Button>
@@ -170,7 +258,7 @@ function ProjectsCarousel({ projects }: { projects: Project[] }) {
             onClick={() => emblaApi?.scrollNext()}
             disabled={!canScrollNext}
             aria-label="Next project"
-            className="h-9 w-9"
+            className="h-11 w-11"
           >
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Button>
@@ -181,11 +269,9 @@ function ProjectsCarousel({ projects }: { projects: Project[] }) {
 }
 
 function CarouselSlide({ project, index, total }: { project: Project; index: number; total: number }) {
-  // On mobile: one full-width slide. On md+: ~70% width so the next card peeks in.
-  // flex-[0_0_85%] is the slide basis; md+ overrides to 70% with a peek.
   return (
     <div
-      className="flex-[0_0_88%] sm:flex-[0_0_75%] md:flex-[0_0_70%] lg:flex-[0_0_58%] xl:flex-[0_0_52%] min-w-0 px-3"
+      className="flex-[0_0_88%] min-w-0 px-3"
       role="group"
       aria-roledescription="slide"
       aria-label={`${index + 1} of ${total}: ${project.title}`}
@@ -197,9 +283,7 @@ function CarouselSlide({ project, index, total }: { project: Project; index: num
         transition={{ duration: 0.5, ease: EXPO, delay: Math.min(index, 4) * 0.08 }}
         className="h-full"
       >
-        <TiltCard className="h-full">
-          <StackedCardShell project={project} index={index} total={total} size="md" />
-        </TiltCard>
+        <StackedCardShell project={project} index={index} total={total} size="md" />
       </motion.div>
     </div>
   )

@@ -12,7 +12,7 @@ export async function Experience() {
     <section id="experience" className="py-16 md:py-20 px-4">
       <div className="container max-w-5xl mx-auto">
         <Reveal className="space-y-4 mb-12 text-center">
-          <SectionAnchor number="05" label="EXPERIENCE" />
+          <SectionAnchor number="02" label="EXPERIENCE" />
           <h2 className="text-3xl md:text-4xl font-bold text-balance">
             Where I&apos;ve worked
           </h2>

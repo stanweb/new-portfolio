@@ -1,22 +1,32 @@
 [
   {
+    "icon": "PanelsTopLeft",
+    "title": "Frontend Architecture",
+    "level": "Expert",
+    "skills": ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "shadcn/ui", "Accessibility (a11y)", "Core Web Vitals"]
+  },
+  {
     "icon": "Server",
-    "title": "Backend",
+    "title": "Backend & APIs",
+    "level": "Proficient",
     "skills": ["Java", "Spring Boot", "Node.js", "Express", "REST APIs", "GraphQL", "PostgreSQL", "MySQL", "Redis"]
   },
   {
-    "icon": "PanelsTopLeft",
-    "title": "Frontend",
-    "skills": ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "shadcn/ui", "HTML5", "CSS3"]
-  },
-  {
     "icon": "Smartphone",
-    "title": "Mobile Development",
+    "title": "Mobile & Cross-Platform",
+    "level": "Proficient",
     "skills": ["React Native", "Expo", "React Redux", "Axios"]
   },
   {
+    "icon": "Activity",
+    "title": "Observability & Production",
+    "level": "Proficient",
+    "skills": ["Prometheus", "Grafana", "CloudWatch", "Jaeger", "Log Analysis", "Incident Response", "Performance Tuning"]
+  },
+  {
     "icon": "Wrench",
-    "title": "Tools & DevOps",
-    "skills": ["Git", "Docker", "Vercel", "Netlify", "CI/CD", "Linux", "Nginx"]
+    "title": "Infrastructure & DevOps",
+    "level": "Exposure",
+    "skills": ["Docker", "GitHub Actions", "CI/CD", "Linux", "Nginx", "Vercel", "Netlify"]
   }
 ]

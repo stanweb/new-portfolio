@@ -52,7 +52,7 @@ export function ResumeLive({ initialContent, gistUrl }: ResumeLiveProps) {
         syncingLabel="Checking for resume updates…"
         className="print:hidden mb-6"
       />
-      <MarkdownRenderer content={content} />
+      <MarkdownRenderer content={content} className="resume-content" />
     </>
   )
 }
